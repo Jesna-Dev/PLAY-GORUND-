@@ -160,10 +160,10 @@ export function DashboardOverview({
 
   return (
     <div className="mt-4 grid gap-3 lg:grid-cols-[minmax(0,1fr)_22rem]">
-      <div className="grid min-w-0 gap-3">
+      <div className="@container grid min-w-0 gap-3">
         {/* Hero */}
         <section className="relative overflow-hidden rounded-2xl bg-card bg-[radial-gradient(ellipse_60%_120%_at_85%_0%,color-mix(in_oklch,var(--primary)_22%,transparent),transparent)] p-5 ring-1 ring-foreground/10 sm:p-7">
-          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,19rem)]">
+          <div className="grid gap-6 @2xl:grid-cols-[minmax(0,1fr)_minmax(0,19rem)]">
             <div className="flex min-w-0 flex-col">
               <p className="font-mono text-lg font-bold tracking-[0.35em] text-primary-text">CODLY</p>
               <p className="mt-auto pt-10 text-sm text-muted-foreground">— Welcome back, {name}</p>
@@ -172,8 +172,8 @@ export function DashboardOverview({
 
             <div className="relative">
               {/* Two cards stacked behind the insight, as in a deck. */}
-              <div aria-hidden="true" className="absolute inset-y-3 right-0 hidden w-[85%] translate-x-6 rounded-2xl bg-[color-mix(in_oklch,var(--primary)_14%,var(--card))] ring-1 ring-foreground/5 md:block" />
-              <div aria-hidden="true" className="absolute inset-y-1.5 right-0 hidden w-[92%] translate-x-3 rounded-2xl bg-[color-mix(in_oklch,var(--primary)_26%,var(--card))] ring-1 ring-foreground/5 md:block" />
+              <div aria-hidden="true" className="absolute inset-y-3 right-0 hidden w-[85%] translate-x-6 rounded-2xl bg-[color-mix(in_oklch,var(--primary)_14%,var(--card))] ring-1 ring-foreground/5 @2xl:block" />
+              <div aria-hidden="true" className="absolute inset-y-1.5 right-0 hidden w-[92%] translate-x-3 rounded-2xl bg-[color-mix(in_oklch,var(--primary)_26%,var(--card))] ring-1 ring-foreground/5 @2xl:block" />
               <div className="relative rounded-2xl bg-[linear-gradient(155deg,color-mix(in_oklch,var(--primary)_35%,white),color-mix(in_oklch,var(--primary)_70%,white))] p-4 text-neutral-950 shadow-xl shadow-black/20">
                 <div className="flex items-center justify-between">
                   <p className="flex items-center gap-1.5 text-sm font-medium">
@@ -195,7 +195,7 @@ export function DashboardOverview({
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-2 md:justify-end">
+          <div className="mt-6 flex flex-wrap items-center gap-2 @2xl:justify-end">
             <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground" aria-hidden="true">
               <CalendarDays className="size-4" />
             </span>
@@ -214,7 +214,7 @@ export function DashboardOverview({
         </section>
 
         {/* Three stats */}
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 @2xl:grid-cols-3">
           <Panel title="Lessons completed" icon={BookOpen} href="/learn">
             <div className="mt-4">
               <BigNumber value={percent(s.done, s.lessons)} label={`${Math.round(percent(s.done, s.lessons))} percent of lessons completed`} />
@@ -252,7 +252,7 @@ export function DashboardOverview({
         </div>
 
         {/* Two wide stats */}
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-3 @xl:grid-cols-2">
           <Panel title="Course progress" icon={TrendingUp} href="/learn">
             <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-4">
               <div className="space-y-3">
