@@ -165,7 +165,7 @@ export function DashboardOverview({
         <section className="relative overflow-hidden rounded-2xl bg-card bg-[radial-gradient(ellipse_60%_120%_at_85%_0%,color-mix(in_oklch,var(--primary)_22%,transparent),transparent)] p-5 ring-1 ring-foreground/10 sm:p-7">
           <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,19rem)]">
             <div className="flex min-w-0 flex-col">
-              <p className="font-mono text-lg font-bold tracking-[0.35em] text-primary-text">PLAYGROUND</p>
+              <p className="font-mono text-lg font-bold tracking-[0.35em] text-primary-text">CODLY</p>
               <p className="mt-auto pt-10 text-sm text-muted-foreground">— Welcome back, {name}</p>
               <h1 className="mt-1 text-3xl font-medium tracking-tight sm:text-4xl">Dashboard Overview</h1>
             </div>

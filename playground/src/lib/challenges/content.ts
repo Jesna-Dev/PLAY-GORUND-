@@ -68,6 +68,8 @@ function parseChallenge(slug: string, difficulty: Difficulty): Challenge {
 let cache: Challenge[] | null = null;
 
 export function getChallenges(): Challenge[] {
+  // Reparse on every request in development, so edits to challenge files show up.
+  if (process.env.NODE_ENV !== "production") cache = null;
   cache ??= levels.flatMap((level) => challengeOrder[level.id].map((slug) => parseChallenge(slug, level.id)));
   return cache;
 }

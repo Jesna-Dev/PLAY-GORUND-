@@ -8,7 +8,7 @@ export default function SettingsPage() {
     <PagePlaceholder
       title="Settings"
       phase={7}
-      description="Manage your account and how Playground works for you."
+      description="Manage your account and how Codly works for you."
       planned={[
         "Account details and sign-in",
         "Editor and theme preferences",

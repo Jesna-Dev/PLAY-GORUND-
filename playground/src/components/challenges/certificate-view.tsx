@@ -124,7 +124,7 @@ export function CertificateView({
     );
   }
 
-  const fileName = `playground-${level}-certificate.png`;
+  const fileName = `codly-${level}-certificate.png`;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">

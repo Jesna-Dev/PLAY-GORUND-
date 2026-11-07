@@ -11,7 +11,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Playground", template: "%s · Playground" },
+  title: { default: "Codly", template: "%s · Codly" },
   description:
     "Learn to code by writing real programs, with an AI tutor beside your editor.",
 };

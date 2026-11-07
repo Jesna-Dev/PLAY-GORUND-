@@ -1,4 +1,4 @@
-# Playground
+# Codly
 
 An AI-powered coding playground: learn a language, write and run real code, and get help from a tutor that can see your code and errors.
 

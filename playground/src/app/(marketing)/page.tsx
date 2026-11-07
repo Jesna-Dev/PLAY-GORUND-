@@ -80,7 +80,7 @@ export default function Home() {
         <a href="#" className="flex items-center gap-2.5">
           <span className="text-xl">🎮</span>
           <span className="text-lg font-bold tracking-tight gradient-text">
-            Playground
+            Codly
           </span>
         </a>
 
@@ -119,7 +119,7 @@ export default function Home() {
 
         {/* sub */}
         <p className="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl leading-relaxed animate-fade-in-up opacity-0 delay-300">
-          Playground is your creative sandbox — a modern developer workspace
+          Codly is your creative sandbox — a modern developer workspace
           where ideas transform into beautiful, production-ready applications in
           record time.
         </p>
@@ -218,7 +218,7 @@ export default function Home() {
               <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
               <span className="w-3 h-3 rounded-full bg-green-500/80" />
               <span className="ml-4 text-xs text-zinc-500 font-mono">
-                page.tsx — Playground
+                page.tsx — Codly
               </span>
             </div>
 
@@ -226,7 +226,7 @@ export default function Home() {
             <div className="code-block !rounded-none !border-0 !m-0">
               <pre>
                 <code>
-                  <span className="comment">{"// Welcome to Playground 🎮"}</span>
+                  <span className="comment">{"// Welcome to Codly 🎮"}</span>
                   {"\n"}
                   <span className="keyword">{"export default"}</span>
                   {" "}
@@ -284,11 +284,11 @@ export default function Home() {
             Ready to start building?
           </h2>
           <p className="mt-5 text-zinc-400 text-lg max-w-xl mx-auto leading-relaxed">
-            Jump into the Playground and turn your next idea into reality. No setup friction, just pure creativity.
+            Jump into Codly and turn your next idea into reality. No setup friction, just pure creativity.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <button className="glow-btn text-base !py-3.5 !px-8">
-              🚀&nbsp; Launch Playground
+              🚀&nbsp; Launch Codly
             </button>
             <a
               href="https://github.com"
@@ -308,11 +308,11 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="text-lg">🎮</span>
             <span className="font-semibold text-sm gradient-text">
-              Playground
+              Codly
             </span>
           </div>
           <p className="text-xs text-zinc-500">
-            &copy; Playground. Crafted with Next.js
+            &copy; Codly. Crafted with Next.js
             &amp; Tailwind CSS v4.
           </p>
           <div className="flex gap-5 text-zinc-500">

@@ -16,7 +16,7 @@ Spaces and punctuation are reversed too, like any other character.
 ```json
 [
   { "args": ["hello"], "expected": "olleh", "example": true },
-  { "args": ["Playground"], "expected": "dnuorgyalP", "example": true },
+  { "args": ["Codly"], "expected": "yldoC", "example": true },
   { "args": [""], "expected": "" },
   { "args": ["a"], "expected": "a" },
   { "args": ["racecar"], "expected": "racecar" },

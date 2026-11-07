@@ -106,6 +106,8 @@ function parseLesson(courseId: Course["id"], slug: string): Lesson {
 let cache: Course[] | null = null;
 
 export function getCourses(): Course[] {
+  // Reparse on every request in development, so edits to lesson files show up.
+  if (process.env.NODE_ENV !== "production") cache = null;
   cache ??= courseIndex.map((meta) => ({
     ...meta,
     modules: meta.modules.map((m) => ({

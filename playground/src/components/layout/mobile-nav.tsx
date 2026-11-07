@@ -22,7 +22,7 @@ export function MobileNav() {
         <Menu aria-hidden="true" />
       </SheetTrigger>
       <SheetContent side="left" className="w-72 bg-sidebar p-4 pt-5">
-        <SheetTitle className="px-3">Playground</SheetTitle>
+        <SheetTitle className="px-3">Codly</SheetTitle>
         <SidebarNav onNavigate={() => setOpen(false)} />
       </SheetContent>
     </Sheet>

@@ -52,7 +52,7 @@ export const CertificateArt = forwardRef<SVGSVGElement, CertificateDetails>(func
         {"{ }"}
       </text>
       <text x="561.5" y="146" textAnchor="middle" fill="#1f2937" fontFamily={SANS} fontSize="20" fontWeight="600">
-        Playground
+        Codly
       </text>
 
       <text x="561.5" y="214" textAnchor="middle" fill="#111827" fontFamily={SERIF} fontSize="40">
@@ -78,7 +78,7 @@ export const CertificateArt = forwardRef<SVGSVGElement, CertificateDetails>(func
       <line x1="261" y1="418" x2="862" y2="418" stroke="#d1d5db" strokeWidth="1.5" />
 
       <text x="561.5" y="466" textAnchor="middle" fill="#374151" fontFamily={SANS} fontSize="19">
-        has solved all {count} {levelTitle.toLowerCase()} coding challenges on Playground
+        has solved all {count} {levelTitle.toLowerCase()} coding challenges on Codly
       </text>
       <text x="561.5" y="496" textAnchor="middle" fill="#374151" fontFamily={SANS} fontSize="19">
         {languages.length ? `using ${joinWords(languages)}.` : ""}
@@ -105,7 +105,7 @@ export const CertificateArt = forwardRef<SVGSVGElement, CertificateDetails>(func
       </text>
 
       <text x="883" y="662" textAnchor="middle" fill="#111827" fontFamily={SERIF} fontSize="20">
-        Playground
+        Codly
       </text>
       <line x1="773" y1="676" x2="993" y2="676" stroke="#9ca3af" strokeWidth="1" />
       <text x="883" y="700" textAnchor="middle" fill="#6b7280" fontFamily={SANS} fontSize="13">
