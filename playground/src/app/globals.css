@@ -1,0 +1,306 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-heading: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
+  --color-progress: var(--progress);
+  --color-progress-track: var(--progress-track);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Product tokens */
+  --color-streak: var(--streak);
+  --color-syntax-keyword: var(--syntax-keyword);
+  --color-syntax-name: var(--syntax-name);
+  --color-syntax-comment: var(--syntax-comment);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Light theme. Dark is the default: see the `dark` class in app/layout.tsx.
+   Brand: #C5DA00 on pure black. #C5DA00 is too light for text on white, so the
+   light theme keeps it for fills (with black text) and uses a deep olive of the
+   same hue, --primary-text, for text, icons and focus rings. */
+:root {
+  color-scheme: light;
+  --radius: 0.75rem;
+
+  --background: #f6f6f3;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #c5da00;
+  --primary-foreground: #000000;
+  --primary-text: #566000;
+  --secondary: #ededea;
+  --secondary-foreground: #0a0a0a;
+  --muted: #ededea;
+  --muted-foreground: #525252;
+  --accent: #f0f3dc;
+  --accent-foreground: #0a0a0a;
+  --destructive: #c4281c;
+  --border: #e2e2dd;
+  --input: #d6d6d0;
+  --ring: #566000;
+  --progress: #c5da00;
+  --progress-track: rgb(0 0 0 / 0.09);
+  --tick: rgb(0 0 0 / 0.28);
+
+  --chart-1: #566000;
+  --chart-2: #2f60b2;
+  --chart-3: #9d5300;
+  --chart-4: #7c3aed;
+  --chart-5: #c4281c;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #262626;
+  --sidebar-primary: #566000;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #f0f3dc;
+  --sidebar-accent-foreground: #0a0a0a;
+  --sidebar-border: #e2e2dd;
+  --sidebar-ring: #566000;
+
+  --streak: #b45309;
+  --syntax-keyword: #566000;
+  --syntax-name: #2f60b2;
+  --syntax-comment: #525252;
+
+  /* Language identity. Always paired with a name and monogram, never color alone. */
+  --lang-html: oklch(0.65 0.19 40);
+  --lang-css: oklch(0.56 0.19 300);
+  --lang-javascript: oklch(0.8 0.16 95);
+  --lang-python: oklch(0.56 0.13 250);
+  --lang-react: oklch(0.72 0.12 215);
+  --lang-typescript: oklch(0.52 0.15 262);
+  --lang-uiux: oklch(0.6 0.2 350);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #000000;
+  --foreground: #f5f5f5;
+  --card: #111111;
+  --card-foreground: #f5f5f5;
+  --popover: #161616;
+  --popover-foreground: #f5f5f5;
+  --primary: #c5da00;
+  --primary-foreground: #000000;
+  --primary-text: #c5da00;
+  --secondary: #1c1c1c;
+  --secondary-foreground: #f5f5f5;
+  --muted: #1c1c1c;
+  --muted-foreground: #a3a3a3;
+  --accent: #1a1a1a;
+  --accent-foreground: #f5f5f5;
+  --destructive: #ff6b5e;
+  --border: rgb(255 255 255 / 0.09);
+  --input: rgb(255 255 255 / 0.14);
+  --ring: #c5da00;
+  --progress: #c5da00;
+  --progress-track: rgb(255 255 255 / 0.08);
+  --tick: rgb(255 255 255 / 0.32);
+
+  --chart-1: #c5da00;
+  --chart-2: #8cc3fc;
+  --chart-3: #f2b966;
+  --chart-4: #c4a5fa;
+  --chart-5: #ff8f84;
+
+  --sidebar: #000000;
+  --sidebar-foreground: #d4d4d4;
+  --sidebar-primary: #c5da00;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #161616;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.08);
+  --sidebar-ring: #c5da00;
+
+  --streak: #fbbf24;
+  --syntax-keyword: #c5da00;
+  --syntax-name: #8cc3fc;
+  --syntax-comment: #a3a3a3;
+
+  --lang-html: oklch(0.72 0.18 40);
+  --lang-css: oklch(0.72 0.16 300);
+  --lang-javascript: oklch(0.86 0.16 95);
+  --lang-python: oklch(0.72 0.12 250);
+  --lang-react: oklch(0.82 0.11 215);
+  --lang-typescript: oklch(0.68 0.14 262);
+  --lang-uiux: oklch(0.74 0.16 350);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ---- Lesson content ------------------------------------------------------ */
+
+.lesson-prose {
+  line-height: 1.75;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+  & > :last-child {
+    margin-bottom: 0;
+  }
+  & h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  & h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+  & p {
+    margin-block: 1rem;
+  }
+  & ul,
+  & ol {
+    margin-block: 1rem;
+    padding-left: 1.5rem;
+  }
+  & ul {
+    list-style: disc;
+  }
+  & ol {
+    list-style: decimal;
+  }
+  & li {
+    margin-block: 0.375rem;
+    padding-left: 0.25rem;
+  }
+  & li::marker {
+    color: var(--muted-foreground);
+  }
+  & strong {
+    font-weight: 600;
+  }
+  & a {
+    color: var(--primary-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  & :not(pre) > code {
+    border-radius: 0.375rem;
+    background: var(--muted);
+    padding: 0.125rem 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+  & pre {
+    margin-block: 1.25rem;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.125rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
+  & blockquote {
+    margin-block: 1.25rem;
+    border-left: 3px solid var(--primary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: var(--accent);
+    padding: 0.75rem 1rem;
+  }
+  & blockquote p {
+    margin: 0;
+  }
+}
+
+/* Shiki emits light colors inline and dark ones as variables. */
+pre.shiki {
+  background-color: var(--card) !important;
+}
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+/* ---- Certificates: print only the certificate, on one landscape page ---- */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .certificate-print,
+  .certificate-print * {
+    visibility: visible;
+  }
+  .certificate-print {
+    position: fixed;
+    inset: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
