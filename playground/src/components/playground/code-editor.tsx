@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Editor, { type BeforeMount, loader, type Monaco, type OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import { useIsDark } from "@/hooks/use-is-dark";
+import { useEditorSettings } from "@/lib/editor-settings";
 import type { FileLanguage } from "@/lib/playground/types";
 
 const MONACO_VERSION = "0.57.0";
@@ -97,6 +98,7 @@ export function CodeEditor({
   onSave: () => void;
 }) {
   const isDark = useIsDark();
+  const settings = useEditorSettings();
   const [failed, setFailed] = useState(false);
   const actions = useRef({ onRun, onSave });
   useLayoutEffect(() => {
@@ -133,6 +135,9 @@ export function CodeEditor({
       ? "monospace"
       : getComputedStyle(document.documentElement).getPropertyValue("--font-geist-mono") || "monospace";
 
+  // Compact editors sit in narrower panes, so they stay one size down.
+  const fontSize = settings.fontSize - (compact ? 1 : 0);
+
   return (
     <Editor
       path={path}
@@ -147,10 +152,12 @@ export function CodeEditor({
       options={{
         ariaLabel: label,
         fontFamily,
-        fontSize: compact ? 13 : 14,
-        lineHeight: compact ? 20 : 22,
+        fontSize,
+        lineHeight: Math.round(fontSize * 1.57),
+        wordWrap: settings.wordWrap ? "on" : "off",
+        lineNumbers: settings.lineNumbers ? "on" : "off",
         tabSize: language === "python" ? 4 : 2,
-        minimap: { enabled: false },
+        minimap: { enabled: settings.minimap },
         scrollBeyondLastLine: false,
         automaticLayout: true,
         padding: { top: 12, bottom: 12 },

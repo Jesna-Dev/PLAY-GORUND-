@@ -10,28 +10,24 @@ import "./landing.css";
 const FEATURES = [
   {
     icon: "⚡",
-    iconClass: "feature-icon-purple",
     title: "Lightning Fast",
     description:
       "Built on Next.js with Turbopack for instant hot-reload and blazing fast builds.",
   },
   {
     icon: "🎨",
-    iconClass: "feature-icon-pink",
     title: "Beautiful UI",
     description:
       "Tailwind CSS v4 with a curated design system — glassmorphism, gradients, and micro-animations.",
   },
   {
     icon: "🧩",
-    iconClass: "feature-icon-green",
     title: "Modular Architecture",
     description:
       "Component-driven structure that scales from weekend hack to production-grade app.",
   },
   {
     icon: "🔒",
-    iconClass: "feature-icon-teal",
     title: "Type-Safe",
     description:
       "End-to-end TypeScript with strict mode enabled for bulletproof developer experience.",
@@ -60,7 +56,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="landing">
+    <div className="landing dark">
       {/* ── Background layers ── */}
       <div className="gradient-bg" aria-hidden="true" />
       <div className="grid-overlay" aria-hidden="true" />
@@ -89,7 +85,7 @@ export default function Home() {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               {link}
             </a>
@@ -118,7 +114,7 @@ export default function Home() {
         </h1>
 
         {/* sub */}
-        <p className="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl leading-relaxed animate-fade-in-up opacity-0 delay-300">
+        <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-fade-in-up opacity-0 delay-300">
           Codly is your creative sandbox — a modern developer workspace
           where ideas transform into beautiful, production-ready applications in
           record time.
@@ -148,7 +144,7 @@ export default function Home() {
         </div>
 
         {/* scroll indicator */}
-        <div className="absolute bottom-10 flex flex-col items-center gap-2 text-zinc-500 text-xs animate-fade-in opacity-0 delay-800">
+        <div className="absolute bottom-10 flex flex-col items-center gap-2 text-muted-foreground text-xs animate-fade-in opacity-0 delay-800">
           <span>Scroll to explore</span>
           <svg
             className="w-4 h-4 animate-bounce"
@@ -173,7 +169,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight gradient-text mt-4">
               Everything you need
             </h2>
-            <p className="mt-4 text-zinc-400 max-w-lg mx-auto">
+            <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
               A carefully crafted toolkit so you can focus on what matters — building great things.
             </p>
           </div>
@@ -186,12 +182,12 @@ export default function Home() {
                   (i + 2) * 100
                 }`}
               >
-                <div className={`feature-icon ${f.iconClass}`}>{f.icon}</div>
+                <div className="feature-icon">{f.icon}</div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-1">
+                  <h3 className="text-lg font-semibold text-foreground mb-1">
                     {f.title}
                   </h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {f.description}
                   </p>
                 </div>
@@ -214,10 +210,10 @@ export default function Home() {
           <div className="glass-card overflow-hidden">
             {/* title bar */}
             <div className="flex items-center gap-2 px-5 py-3 border-b border-white/5">
-              <span className="w-3 h-3 rounded-full bg-red-500/80" />
-              <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <span className="w-3 h-3 rounded-full bg-green-500/80" />
-              <span className="ml-4 text-xs text-zinc-500 font-mono">
+              <span className="w-3 h-3 rounded-full bg-foreground/20" />
+              <span className="w-3 h-3 rounded-full bg-foreground/20" />
+              <span className="w-3 h-3 rounded-full bg-primary" />
+              <span className="ml-4 text-xs text-muted-foreground font-mono">
                 page.tsx — Codly
               </span>
             </div>
@@ -270,7 +266,7 @@ export default function Home() {
             {STATS.map((s) => (
               <div key={s.label} className="flex flex-col items-center py-10 px-4">
                 <span className="stat-number">{s.value}</span>
-                <span className="mt-2 text-sm text-zinc-400">{s.label}</span>
+                <span className="mt-2 text-sm text-muted-foreground">{s.label}</span>
               </div>
             ))}
           </div>
@@ -283,7 +279,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight gradient-text">
             Ready to start building?
           </h2>
-          <p className="mt-5 text-zinc-400 text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="mt-5 text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed">
             Jump into Codly and turn your next idea into reality. No setup friction, just pure creativity.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
@@ -311,18 +307,18 @@ export default function Home() {
               Codly
             </span>
           </div>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-muted-foreground">
             &copy; Codly. Crafted with Next.js
             &amp; Tailwind CSS v4.
           </p>
-          <div className="flex gap-5 text-zinc-500">
-            <a href="#" className="hover:text-white transition-colors text-sm">
+          <div className="flex gap-5 text-muted-foreground">
+            <a href="#" className="hover:text-foreground transition-colors text-sm">
               Docs
             </a>
-            <a href="#" className="hover:text-white transition-colors text-sm">
+            <a href="#" className="hover:text-foreground transition-colors text-sm">
               Blog
             </a>
-            <a href="#" className="hover:text-white transition-colors text-sm">
+            <a href="#" className="hover:text-foreground transition-colors text-sm">
               GitHub
             </a>
           </div>

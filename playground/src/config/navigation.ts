@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  BriefcaseBusiness,
   LayoutDashboard,
   type LucideIcon,
   Settings,
@@ -17,6 +18,7 @@ export const primaryNav: NavItem[] = [
   { label: "Learn", href: "/learn", icon: BookOpen },
   { label: "Challenges", href: "/challenges", icon: Target },
   { label: "AI Tutor", href: "/tutor", icon: Sparkles },
+  { label: "Interview", href: "/interview", icon: BriefcaseBusiness },
 ];
 
 export const secondaryNav: NavItem[] = [

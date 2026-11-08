@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/shared/page-placeholder";
+import { PageContainer } from "@/components/layout/page-container";
+import { SettingsForm } from "@/components/settings/settings-form";
+import { getDashboardData } from "@/lib/data/dashboard";
 
 export const metadata: Metadata = { title: "Settings" };
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const { user } = await getDashboardData();
+
   return (
-    <PagePlaceholder
-      title="Settings"
-      phase={7}
-      description="Manage your account and how Codly works for you."
-      planned={[
-        "Account details and sign-in",
-        "Editor and theme preferences",
-      ]}
-    />
+    <PageContainer>
+      <div className="mx-auto max-w-3xl">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Settings</h1>
+        <SettingsForm defaultName={user.name} />
+      </div>
+    </PageContainer>
   );
 }

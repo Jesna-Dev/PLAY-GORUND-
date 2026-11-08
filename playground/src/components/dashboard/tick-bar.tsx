@@ -22,7 +22,7 @@ export function TickBar({
       aria-valuenow={value}
       aria-valuetext={`${value} of ${max}`}
       className={cn(
-        "relative h-7 overflow-hidden rounded-md bg-[repeating-linear-gradient(90deg,var(--tick)_0_1px,transparent_1px_5px)]",
+        "relative h-5 overflow-hidden rounded-md bg-[repeating-linear-gradient(90deg,var(--tick)_0_1px,transparent_1px_5px)]",
         className,
       )}
     >

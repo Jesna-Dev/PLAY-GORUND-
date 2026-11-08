@@ -1,5 +1,7 @@
 import type { LanguageId } from "@/lib/languages";
 
+export type CourseLevel = "Babies" | "Intermediate" | "Experienced" | "Pro";
+
 export type CourseMeta = {
   id: LanguageId;
   title: string;
@@ -9,7 +11,7 @@ export type CourseMeta = {
   category: "programming" | "design";
   outcomes: string[];
   /** Lesson files are `<id>/<slug>.md`, in this order. */
-  modules: { title: string; lessons: string[] }[];
+  modules: { title: CourseLevel; lessons: string[] }[];
 };
 
 export const courseIndex: CourseMeta[] = [
@@ -26,10 +28,14 @@ export const courseIndex: CourseMeta[] = [
       "Add links, and images with useful alt text",
       "Organize content with lists",
       "Structure a page with header, main and footer",
+      "Collect information with forms and validation",
+      "Make pages work for everyone",
     ],
     modules: [
-      { title: "Your first page", lessons: ["what-is-html", "links-and-images"] },
-      { title: "Structure and meaning", lessons: ["lists", "page-structure"] },
+      { title: "Babies", lessons: ["what-is-html", "links-and-images"] },
+      { title: "Intermediate", lessons: ["lists", "page-structure"] },
+      { title: "Experienced", lessons: ["forms-and-inputs"] },
+      { title: "Pro", lessons: ["accessible-pages"] },
     ],
   },
   {
@@ -45,10 +51,14 @@ export const courseIndex: CourseMeta[] = [
       "Control spacing with the box model",
       "Lay out items with flexbox",
       "Build responsive grids with media queries",
+      "Build layouts with CSS Grid",
+      "Create themes with custom properties",
     ],
     modules: [
-      { title: "Styling basics", lessons: ["selectors", "box-model"] },
-      { title: "Layout", lessons: ["flexbox", "responsive-design"] },
+      { title: "Babies", lessons: ["selectors", "box-model"] },
+      { title: "Intermediate", lessons: ["flexbox", "responsive-design"] },
+      { title: "Experienced", lessons: ["css-grid"] },
+      { title: "Pro", lessons: ["custom-properties"] },
     ],
   },
   {
@@ -64,10 +74,14 @@ export const courseIndex: CourseMeta[] = [
       "Write functions that return results",
       "Make decisions with if and else",
       "Work through lists with arrays and loops",
+      "Transform data with array methods",
+      "Use closures and higher-order functions",
     ],
     modules: [
-      { title: "Values and functions", lessons: ["variables", "functions"] },
-      { title: "Decisions and data", lessons: ["conditionals", "arrays-and-loops"] },
+      { title: "Babies", lessons: ["variables", "functions"] },
+      { title: "Intermediate", lessons: ["conditionals", "arrays-and-loops"] },
+      { title: "Experienced", lessons: ["array-methods"] },
+      { title: "Pro", lessons: ["closures"] },
     ],
   },
   {
@@ -83,10 +97,14 @@ export const courseIndex: CourseMeta[] = [
       "Make decisions with if, elif and else",
       "Loop over lists and ranges",
       "Count and look up values with dictionaries",
+      "Write comprehensions and flexible functions",
+      "Model data with classes and handle errors",
     ],
     modules: [
-      { title: "Getting started", lessons: ["print-and-variables", "conditionals"] },
-      { title: "Working with data", lessons: ["lists-and-loops", "dictionaries"] },
+      { title: "Babies", lessons: ["print-and-variables", "conditionals"] },
+      { title: "Intermediate", lessons: ["lists-and-loops", "dictionaries"] },
+      { title: "Experienced", lessons: ["functions-and-comprehensions"] },
+      { title: "Pro", lessons: ["classes"] },
     ],
   },
   {
@@ -101,10 +119,14 @@ export const courseIndex: CourseMeta[] = [
       "Write components with JSX",
       "Pass data into components with props",
       "Make components interactive with state",
+      "Sync with the outside world using effects",
+      "Share logic and data with hooks and context",
     ],
     modules: [
-      { title: "Thinking in components", lessons: ["components-and-jsx", "props"] },
-      { title: "Interactivity", lessons: ["state"] },
+      { title: "Babies", lessons: ["components-and-jsx", "props"] },
+      { title: "Intermediate", lessons: ["state"] },
+      { title: "Experienced", lessons: ["effects"] },
+      { title: "Pro", lessons: ["custom-hooks-and-context"] },
     ],
   },
   {
@@ -119,10 +141,14 @@ export const courseIndex: CourseMeta[] = [
       "Annotate variables and functions",
       "Describe objects with types and interfaces",
       "Use unions, and narrow them safely",
+      "Write reusable code with generics",
+      "Derive types and check every case",
     ],
     modules: [
-      { title: "Type basics", lessons: ["type-annotations", "object-types"] },
-      { title: "Safer code", lessons: ["unions-and-narrowing"] },
+      { title: "Babies", lessons: ["type-annotations", "object-types"] },
+      { title: "Intermediate", lessons: ["unions-and-narrowing"] },
+      { title: "Experienced", lessons: ["generics"] },
+      { title: "Pro", lessons: ["utility-and-mapped-types"] },
     ],
   },
   {
@@ -140,11 +166,13 @@ export const courseIndex: CourseMeta[] = [
       "Choose colors that meet WCAG contrast",
       "Design forms people can finish",
       "Plan research and usability tests",
+      "Scale a product with a design system",
     ],
     modules: [
-      { title: "Design foundations", lessons: ["visual-hierarchy", "spacing-and-grouping", "typography"] },
-      { title: "Accessible by default", lessons: ["color-and-contrast", "usable-forms", "interaction-states"] },
-      { title: "Designing with people", lessons: ["user-research"] },
+      { title: "Babies", lessons: ["visual-hierarchy", "spacing-and-grouping", "typography"] },
+      { title: "Intermediate", lessons: ["color-and-contrast", "usable-forms", "interaction-states"] },
+      { title: "Experienced", lessons: ["user-research"] },
+      { title: "Pro", lessons: ["design-systems"] },
     ],
   },
 ];

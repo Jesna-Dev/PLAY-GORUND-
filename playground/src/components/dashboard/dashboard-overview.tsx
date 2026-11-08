@@ -37,9 +37,9 @@ function BigNumber({ value, suffix = "%", label }: { value: number | null; suffi
       ? "–"
       : new Intl.NumberFormat(undefined, { maximumFractionDigits: 1, minimumFractionDigits: Number.isInteger(value) ? 0 : 1 }).format(value);
   return (
-    <p className="text-4xl font-medium tracking-tight tabular-nums" aria-label={label}>
+    <p className="text-2xl font-medium tracking-tight tabular-nums" aria-label={label}>
       {text}
-      {value !== null && <span className="ml-0.5 text-base font-normal text-muted-foreground">{suffix}</span>}
+      {value !== null && <span className="ml-0.5 text-xs font-normal text-muted-foreground">{suffix}</span>}
     </p>
   );
 }
@@ -67,7 +67,7 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <section aria-label={title} className={cn("flex flex-col rounded-2xl bg-card p-4 ring-1 ring-foreground/10 sm:p-5", className)}>
+    <section aria-label={title} className={cn("flex flex-col rounded-2xl bg-card p-3 ring-1 ring-foreground/10 sm:p-4", className)}>
       <div className="flex items-center justify-between gap-2">
         <h2 className="flex items-center gap-2 text-sm font-medium">
           <Icon aria-hidden="true" className="size-4 text-muted-foreground" />
@@ -216,14 +216,14 @@ export function DashboardOverview({
         {/* Three stats */}
         <div className="grid gap-3 md:grid-cols-3">
           <Panel title="Lessons completed" icon={BookOpen} href="/learn">
-            <div className="mt-4">
+            <div className="mt-3">
               <BigNumber value={percent(s.done, s.lessons)} label={`${Math.round(percent(s.done, s.lessons))} percent of lessons completed`} />
             </div>
-            <div className="mt-auto flex items-end justify-between pt-5">
+            <div className="mt-auto flex items-end justify-between pt-3">
               <SubStat value={s.done} label="Completed" />
               <SubStat value={s.lessons} label="Total lessons" align="right" />
             </div>
-            <TickBar className="mt-3" value={s.done} max={s.lessons} label="Lessons completed" />
+            <TickBar className="mt-2" value={s.done} max={s.lessons} label="Lessons completed" />
           </Panel>
 
           <Panel title="Exercises solved" icon={SquareCheckBig} href="/learn">
@@ -231,7 +231,7 @@ export function DashboardOverview({
               <SubStat value={s.solvedExercises} label="Solved" />
               <SubStat value={s.exercises - s.solvedExercises} label="To go" align="right" />
             </div>
-            <div className="relative mx-auto mt-1 w-full max-w-56">
+            <div className="relative mx-auto mt-1 w-full max-w-28">
               <Gauge value={s.solvedExercises} max={s.exercises} />
               <div className="absolute inset-x-0 bottom-0 text-center">
                 <BigNumber value={percent(s.solvedExercises, s.exercises)} label={`${Math.round(percent(s.solvedExercises, s.exercises))} percent of exercises solved`} />
@@ -240,22 +240,22 @@ export function DashboardOverview({
           </Panel>
 
           <Panel title="Challenges solved" icon={Target} href="/challenges">
-            <div className="mt-4">
+            <div className="mt-3">
               <BigNumber value={percent(s.solvedChallenges, challenges.length)} label={`${Math.round(percent(s.solvedChallenges, challenges.length))} percent of challenges solved`} />
             </div>
-            <div className="mt-auto flex items-end justify-between pt-5">
+            <div className="mt-auto flex items-end justify-between pt-3">
               <SubStat value={s.solvedChallenges} label="Solved" />
               <SubStat value={challenges.length} label="Total" align="right" />
             </div>
-            <TickBar className="mt-3" value={s.solvedChallenges} max={challenges.length} label="Challenges solved" />
+            <TickBar className="mt-2" value={s.solvedChallenges} max={challenges.length} label="Challenges solved" />
           </Panel>
         </div>
 
         {/* Two wide stats */}
         <div className="grid gap-3 md:grid-cols-2">
           <Panel title="Course progress" icon={TrendingUp} href="/learn">
-            <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-4">
-              <div className="space-y-3">
+            <div className="mt-3 grid grid-cols-[auto_1fr_auto] items-center gap-3">
+              <div className="space-y-2">
                 <SubStat value={s.started} label="Started" />
                 <SubStat value={s.finishedCourses} label="Finished" />
               </div>
@@ -263,7 +263,7 @@ export function DashboardOverview({
                 <p className="text-xs text-muted-foreground">Average across courses</p>
                 <BigNumber value={s.averageCourse} />
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <SubStat value={s.lessons - s.done} label="Lessons left" align="right" />
                 <SubStat value={courses.length} label="Courses" align="right" />
               </div>
@@ -271,8 +271,8 @@ export function DashboardOverview({
           </Panel>
 
           <Panel title="Quiz accuracy" icon={MessageCircleQuestion} href="/learn">
-            <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-4">
-              <div className="space-y-3">
+            <div className="mt-3 grid grid-cols-[auto_1fr_auto] items-center gap-3">
+              <div className="space-y-2">
                 <SubStat value={s.answered} label="Answered" />
                 <SubStat value={s.correct} label="Correct" />
               </div>
@@ -280,7 +280,7 @@ export function DashboardOverview({
                 <p className="text-xs text-muted-foreground">Answers that are right</p>
                 <BigNumber value={s.answered ? percent(s.correct, s.answered) : null} />
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <SubStat value={`${s.answered}/${s.questions}`} label="Questions" align="right" />
                 <SubStat value={s.perfectLessons} label="Perfect lessons" align="right" />
               </div>

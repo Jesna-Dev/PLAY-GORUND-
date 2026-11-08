@@ -87,7 +87,7 @@ export default async function CoursePage({ params }: Params) {
         {course.modules.map((module, moduleIndex) => (
           <section key={module.title} aria-labelledby={`module-${moduleIndex}`} className="mt-10">
             <h2 id={`module-${moduleIndex}`} className="text-base font-medium">
-              <span className="text-muted-foreground">Module {moduleIndex + 1}:</span> {module.title}
+              <span className="text-muted-foreground">Level {moduleIndex + 1}:</span> {module.title}
             </h2>
             <ol className="mt-3 divide-y overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
               {module.lessons.map((lesson, lessonIndex) => {

@@ -50,7 +50,7 @@ export default async function LessonPage({ params }: Params) {
 
           <header className="mt-6">
             <p className="text-sm text-muted-foreground">
-              Module {moduleIndex + 1}: {moduleTitle} · Lesson {number} of {total}
+              Level {moduleIndex + 1}: {moduleTitle} · Lesson {number} of {total}
             </p>
             <h1 className="mt-1 text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{lesson.title}</h1>
             <p className="mt-2 text-pretty text-muted-foreground">{lesson.summary}</p>

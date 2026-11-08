@@ -13,9 +13,9 @@ export default function DashboardLoading() {
           <div className="grid gap-3">
             <Skeleton className="h-64 rounded-2xl" />
             <div className="grid gap-3 md:grid-cols-3">
-              <Skeleton className="h-48 rounded-2xl" />
-              <Skeleton className="h-48 rounded-2xl" />
-              <Skeleton className="h-48 rounded-2xl" />
+              <Skeleton className="h-40 rounded-2xl" />
+              <Skeleton className="h-40 rounded-2xl" />
+              <Skeleton className="h-40 rounded-2xl" />
             </div>
           </div>
           <Skeleton className="h-[34rem] rounded-2xl" />
