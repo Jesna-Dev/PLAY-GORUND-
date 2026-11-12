@@ -93,10 +93,8 @@ function DashboardSearch({ items }: { items: SearchItem[] }) {
 
 export function DashboardHeader({
   items,
-  user,
 }: {
   items: SearchItem[];
-  user: { name: string; initials: string };
 }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -140,7 +138,7 @@ export function DashboardHeader({
           </TooltipTrigger>
           <TooltipContent side="bottom">Settings</TooltipContent>
         </Tooltip>
-        <UserMenu name={user.name} initials={user.initials} />
+        <UserMenu />
       </div>
     </div>
   );

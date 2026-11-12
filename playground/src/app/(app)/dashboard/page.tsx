@@ -4,13 +4,11 @@ import { DashboardOverview } from "@/components/dashboard/dashboard-overview";
 import { PageContainer } from "@/components/layout/page-container";
 import { getChallengeSummaries } from "@/lib/challenges/content";
 import { levelTitle } from "@/lib/challenges/levels";
-import { getDashboardData } from "@/lib/data/dashboard";
 import { getCourseSummaries } from "@/lib/learn/content";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
-export default async function DashboardPage() {
-  const { user } = await getDashboardData();
+export default function DashboardPage() {
   const courses = getCourseSummaries();
   const challenges = getChallengeSummaries();
 
@@ -34,8 +32,8 @@ export default async function DashboardPage() {
   return (
     <PageContainer className="lg:pt-6">
       <div className="mx-auto max-w-7xl">
-        <DashboardHeader items={searchItems} user={user} />
-        <DashboardOverview name={user.name} courses={courses} challenges={challenges} />
+        <DashboardHeader items={searchItems} />
+        <DashboardOverview courses={courses} challenges={challenges} />
       </div>
     </PageContainer>
   );

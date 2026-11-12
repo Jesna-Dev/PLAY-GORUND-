@@ -17,17 +17,15 @@ import type { CourseSummary } from "@/lib/learn/types";
 import { loadWorkspace } from "@/lib/playground/storage";
 import type { ProjectKind } from "@/lib/playground/types";
 import { cn } from "@/lib/utils";
+import { initialsOf, useCurrentUser } from "@/lib/auth-client";
+import { ACCOUNT_TYPE_INFO } from "@/lib/account-types";
+import { ACCOUNT_TYPE_ICONS } from "@/components/auth/account-type-picker";
 
 const COURSE_LEVELS: CourseLevel[] = ["Babies", "Intermediate", "Experienced", "Pro"];
 const PROJECT_NAMES: Record<ProjectKind, string> = { web: "HTML & CSS", javascript: "JavaScript", python: "Python" };
 const INTERVIEW_READY = 10;
 
 const card = "rounded-2xl bg-card p-4 ring-1 ring-foreground/10 sm:p-5";
-
-function initialsOf(name: string) {
-  const words = name.trim().split(/\s+/);
-  return (words[0][0] + (words.length > 1 ? words[words.length - 1][0] : "")).toUpperCase();
-}
 
 function Stat({ label, value, total, href }: { label: string; value: number; total: number; href: string }) {
   return (
@@ -44,22 +42,36 @@ function Stat({ label, value, total, href }: { label: string; value: number; tot
   );
 }
 
+function AccountTypeBadge({ type }: { type: keyof typeof ACCOUNT_TYPE_INFO }) {
+  const Icon = ACCOUNT_TYPE_ICONS[type];
+  return (
+    <Link
+      href="/settings"
+      title="Change in Settings"
+      className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-primary/12 px-2.5 py-0.5 text-xs font-medium text-primary-text ring-1 ring-primary/30 outline-none hover:bg-primary/20 focus-visible:ring-3 focus-visible:ring-ring/50"
+    >
+      <Icon aria-hidden="true" className="size-3.5" />
+      {ACCOUNT_TYPE_INFO[type].label}
+    </Link>
+  );
+}
+
 export function ProfileOverview({
-  user,
   courses,
   challenges,
 }: {
-  user: { name: string; initials: string };
   courses: CourseSummary[];
   challenges: ChallengeSummary[];
 }) {
   const state = useLearnProgress();
+  const user = useCurrentUser();
+  const accountName = user?.name ?? "Guest";
   const [statuses] = useState(loadStatuses);
   const [workspace] = useState(loadWorkspace);
 
   const customName = state.name?.trim();
-  const name = customName || user.name;
-  const initials = customName ? initialsOf(customName) : user.initials;
+  const name = customName || accountName;
+  const initials = initialsOf(name);
 
   const lessons = courses.flatMap((c) => c.lessons);
   const done = lessons.filter((l) => state.completed[l.key]);
@@ -97,6 +109,7 @@ export function ProfileOverview({
             </Avatar>
             <div className="min-w-0">
               <h1 className="truncate text-2xl font-semibold tracking-tight sm:text-3xl">{name}</h1>
+              {user && <AccountTypeBadge type={user.accountType} />}
               <p className="mt-0.5 text-sm text-muted-foreground">
                 {done.length} of {lessons.length} lessons completed
               </p>
@@ -110,7 +123,7 @@ export function ProfileOverview({
               id="profile-name"
               value={state.name ?? ""}
               onChange={(e) => progress.setName(e.target.value)}
-              placeholder={user.name}
+              placeholder={accountName}
               maxLength={60}
               autoComplete="name"
               className="mt-1 h-9 w-full rounded-lg bg-background/60 px-3 text-sm ring-1 ring-foreground/10 outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/50"

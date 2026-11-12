@@ -1,8 +1,10 @@
+import { queueUpload } from "@/lib/sync/client";
+import type { SyncedKey } from "@/lib/sync/keys";
 import { kindOrder, starterProject } from "./templates";
 import type { Project, ProjectKind } from "./types";
 
-// Browser storage until accounts and Supabase land in Phase 7.
-const KEY = "playground:v1";
+// Saved in this browser, and to the account while signed in.
+const KEY = "playground:v1" satisfies SyncedKey;
 
 type Stored = {
   kind?: ProjectKind;
@@ -21,6 +23,7 @@ function read(): Stored {
 function write(stored: Stored): boolean {
   try {
     localStorage.setItem(KEY, JSON.stringify(stored));
+    queueUpload(KEY);
     return true;
   } catch {
     return false;

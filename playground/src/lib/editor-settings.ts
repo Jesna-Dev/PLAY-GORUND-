@@ -1,5 +1,7 @@
 "use client";
 
+import { queueUpload } from "@/lib/sync/client";
+import type { SyncedKey } from "@/lib/sync/keys";
 import { useSyncExternalStore } from "react";
 
 export const EDITOR_FONT_SIZES = [13, 14, 16, 18] as const;
@@ -11,7 +13,7 @@ export type EditorSettings = {
   minimap: boolean;
 };
 
-const KEY = "editor:v1";
+const KEY = "editor:v1" satisfies SyncedKey;
 const DEFAULTS: EditorSettings = { fontSize: 14, wordWrap: false, lineNumbers: true, minimap: false };
 
 let cached: { raw: string | null; value: EditorSettings } | null = null;
@@ -64,6 +66,7 @@ export function updateEditorSettings(change: Partial<EditorSettings>) {
   const next = { ...read(), ...change };
   try {
     localStorage.setItem(KEY, JSON.stringify(next));
+    queueUpload(KEY);
   } catch {
     memoryOnly = next;
   }

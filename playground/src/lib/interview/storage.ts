@@ -1,5 +1,7 @@
-// Browser storage until accounts and Supabase land in Phase 7.
-const KEY = "interview:v1";
+import { queueUpload } from "@/lib/sync/client";
+import type { SyncedKey } from "@/lib/sync/keys";
+// Saved in this browser, and to the account while signed in.
+const KEY = "interview:v1" satisfies SyncedKey;
 
 export type QuestionStatus = "known" | "review";
 export type InterviewStatuses = Record<string, QuestionStatus>;
@@ -16,6 +18,7 @@ export function loadStatuses(): InterviewStatuses {
 export function saveStatuses(statuses: InterviewStatuses) {
   try {
     localStorage.setItem(KEY, JSON.stringify(statuses));
+    queueUpload(KEY);
   } catch {
     // Storage blocked or full: marks still work for this visit.
   }

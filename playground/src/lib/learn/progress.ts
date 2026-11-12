@@ -1,9 +1,11 @@
 "use client";
 
+import { queueUpload } from "@/lib/sync/client";
+import type { SyncedKey } from "@/lib/sync/keys";
 import { useSyncExternalStore } from "react";
 
 /**
- * Learning progress, kept in this browser until accounts land in Phase 7.
+ * Learning progress, saved in this browser and to the account while signed in.
  * Keys are "<course>/<lesson>".
  */
 export type LearnProgress = {
@@ -21,8 +23,8 @@ export type LearnProgress = {
   name?: string;
 };
 
-const KEY = "learn:v1";
-const DRAFTS_KEY = "learn:drafts:v1";
+const KEY = "learn:v1" satisfies SyncedKey;
+const DRAFTS_KEY = "learn:drafts:v1" satisfies SyncedKey;
 const EMPTY: LearnProgress = { completed: {}, passed: {}, answers: {}, challenges: {} };
 
 let cached: { raw: string | null; value: LearnProgress } | null = null;
@@ -62,6 +64,7 @@ function update(change: (current: LearnProgress) => LearnProgress) {
   const next = change(read());
   try {
     localStorage.setItem(KEY, JSON.stringify(next));
+    queueUpload(KEY);
   } catch {
     memoryOnly = next;
   }
@@ -143,6 +146,7 @@ export function saveDraft(key: string, code: string | null) {
     if (code === null) delete drafts[key];
     else drafts[key] = code;
     localStorage.setItem(DRAFTS_KEY, JSON.stringify(drafts));
+    queueUpload(DRAFTS_KEY);
   } catch {
     // Not saved; the code is still in the editor.
   }

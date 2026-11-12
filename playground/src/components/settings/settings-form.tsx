@@ -7,16 +7,22 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useIsDark } from "@/hooks/use-is-dark";
 import { EDITOR_FONT_SIZES, type EditorSettings, updateEditorSettings, useEditorSettings } from "@/lib/editor-settings";
 import { progress, useLearnProgress } from "@/lib/learn/progress";
+import { AccountTypePicker } from "@/components/auth/account-type-picker";
+import { type AccountType } from "@/lib/account-types";
+import { authClient, useCurrentUser } from "@/lib/auth-client";
+import { deleteFromAccount } from "@/lib/sync/client";
+import type { SyncedKey } from "@/lib/sync/keys";
 import { setTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
 const FONT_SIZE_LABELS: Record<EditorSettings["fontSize"], string> = { 13: "Small", 14: "Medium", 16: "Large", 18: "Extra large" };
 
 // Everything a learner has made. Theme and editor preferences are deliberately kept.
-const PROGRESS_KEYS = ["learn:v1", "learn:drafts:v1", "playground:v1", "tutor:v1", "interview:v1"];
-const TUTOR_KEY = "tutor:v1";
+const PROGRESS_KEYS: SyncedKey[] = ["learn:v1", "learn:drafts:v1", "playground:v1", "tutor:v1", "interview:v1"];
+const TUTOR_KEY: SyncedKey = "tutor:v1";
 
-function removeKeys(keys: string[]) {
+async function removeKeys(keys: SyncedKey[]) {
+  await deleteFromAccount(keys);
   try {
     for (const key of keys) localStorage.removeItem(key);
   } catch {
@@ -105,8 +111,17 @@ function Switch({ labelledBy, checked, onChange }: { labelledBy: string; checked
   );
 }
 
-export function SettingsForm({ defaultName }: { defaultName: string }) {
+export function SettingsForm() {
   const state = useLearnProgress();
+  const user = useCurrentUser();
+  const [removing, setRemoving] = useState(false);
+  const [typeError, setTypeError] = useState<string | null>(null);
+
+  async function changeAccountType(accountType: AccountType) {
+    setTypeError(null);
+    const { error } = await authClient.updateUser({ accountType });
+    if (error) setTypeError("Couldn't change your account type. Try again.");
+  }
   const isDark = useIsDark();
   const editor = useEditorSettings();
   const [confirm, setConfirm] = useState<"tutor" | "all" | null>(null);
@@ -122,13 +137,30 @@ export function SettingsForm({ defaultName }: { defaultName: string }) {
             id="settings-name"
             value={state.name ?? ""}
             onChange={(e) => progress.setName(e.target.value)}
-            placeholder={defaultName}
+            placeholder={user?.name ?? "Your name"}
             maxLength={60}
             autoComplete="name"
             className="h-9 w-full rounded-lg bg-background/60 px-3 text-sm ring-1 ring-foreground/10 outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/50 sm:w-60"
           />
         </Row>
       </Section>
+
+      {user && (
+        <Section title="Account">
+          <div className="p-4">
+            <p className="text-sm font-medium">Account type</p>
+            <p className="mt-0.5 text-sm text-muted-foreground">What you&apos;re using Codly for.</p>
+            <div className="mt-3">
+              <AccountTypePicker compact legend="Account type" value={user.accountType} onChange={(type) => void changeAccountType(type)} />
+            </div>
+            {typeError && (
+              <p role="alert" className="mt-2 text-sm text-destructive">
+                {typeError}
+              </p>
+            )}
+          </div>
+        </Section>
+      )}
 
       <Section title="Appearance">
         <Row label="Theme" detail="The home page always stays dark.">
@@ -173,7 +205,14 @@ export function SettingsForm({ defaultName }: { defaultName: string }) {
         </Row>
       </Section>
 
-      <Section title="Your data" description="Accounts and sign-in aren't available yet, so everything is saved in this browser.">
+      <Section
+        title="Your data"
+        description={
+          user
+            ? `Saved to your account (${user.email}) and in this browser.`
+            : "You're not signed in, so everything is saved in this browser only. Sign in to keep it on every device."
+        }
+      >
         <Row label="AI Tutor conversation" detail="Delete the saved chat.">
           <Button variant="outline" onClick={() => setConfirm("tutor")}>
             Clear chat
@@ -193,15 +232,22 @@ export function SettingsForm({ defaultName }: { defaultName: string }) {
             <DialogDescription>
               {confirm === "tutor"
                 ? "Your saved conversation will be deleted. This can't be undone."
-                : "Your lessons, challenges, interview marks, certificate name, saved code and tutor chat will be deleted from this browser. This can't be undone."}
+                : `Your lessons, challenges, interview marks, certificate name, saved code and tutor chat will be deleted from ${user ? "your account and " : ""}this browser. This can't be undone.`}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setConfirm(null)}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={() => removeKeys(confirm === "tutor" ? [TUTOR_KEY] : PROGRESS_KEYS)}>
-              {confirm === "tutor" ? "Clear chat" : "Reset everything"}
+            <Button
+              variant="destructive"
+              disabled={removing}
+              onClick={() => {
+                setRemoving(true);
+                void removeKeys(confirm === "tutor" ? [TUTOR_KEY] : PROGRESS_KEYS);
+              }}
+            >
+              {removing ? "Deleting…" : confirm === "tutor" ? "Clear chat" : "Reset everything"}
             </Button>
           </DialogFooter>
         </DialogContent>

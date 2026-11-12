@@ -9,6 +9,16 @@ npm run build    # production build, also enforces Cache Components rules
 npm run lint
 ```
 
+### Database and accounts
+
+Accounts and saved data need Postgres. Without it the app still works, and everything is saved in the browser only.
+
+1. Create a free Postgres database, for example on [Neon](https://neon.tech) or Supabase, and copy its connection URL.
+2. Copy `.env.example` to `.env.local` and fill in `DATABASE_URL`, `BETTER_AUTH_SECRET` (`openssl rand -base64 32`) and `BETTER_AUTH_URL`.
+3. Run `npm run db:push` to create the tables, then restart `npm run dev`.
+
+`npm run db:studio` opens a browser view of the data. After changing `src/db/schema.ts`, run `npm run db:push` again.
+
 ## Status
 
 | Phase | Scope | Status |
@@ -19,10 +29,10 @@ npm run lint
 | 4 | Code execution and live preview | Done in the browser: live web preview, JavaScript and Python. A server-side runner such as Judge0 is only needed for languages that can't run in a browser |
 | 5 | AI assistant | Not started |
 | 6 | Learning hub and challenges | Done. Learning hub: 7 courses (6 programming, plus UI/UX Fundamentals), 29 lessons, 22 checked exercises. Challenges: 11 problems in JavaScript or Python, a daily challenge, and a certificate for each of 3 levels. AI hints wait for Phase 5 |
-| 7 | Auth and database | Not started |
+| 7 | Auth and database | Done: email and password accounts (Better Auth) and Postgres (Drizzle). Progress, drafts, playground code, the tutor chat, interview marks and editor settings sync to the account. Each account has a type, Student, Employer or Candidate, chosen at sign-up and changeable in Settings (`src/lib/account-types.ts`) |
 | 8 | Testing, optimization, deployment | Not started |
 
-Until Phase 7, learning progress, solved challenges, the certificate name, drafts and playground code are saved in the browser's local storage. Certificates can't be verified online until then. The dashboard's streak and recent playgrounds are sample data. Routes for later phases render a placeholder that says what's coming.
+Signed out, everything is saved in the browser's local storage. Signed in, each change is also sent to the account a second later, and signing in on another device brings it back. Progress made before signing in is merged into the account. Certificates can't be verified online yet. The dashboard's streak and recent playgrounds are sample data. Routes for later phases render a placeholder that says what's coming.
 
 ## Structure
 
@@ -30,12 +40,15 @@ Until Phase 7, learning progress, solved challenges, the certificate name, draft
 src/
   app/
     (marketing)/     Public pages. landing.css is scoped to the starter landing page
+    (auth)/          Sign-in and sign-up pages
     (app)/           Everything inside the sidebar shell
       layout.tsx     Sidebar, top bar, skip link
       error.tsx      Error boundary for the whole shell
       dashboard/     Dashboard page and its loading skeleton
       learn/         Hub, [course] and [course]/[lesson], all prerendered
       challenges/    Hub, [slug], and certificates/[level]
+    api/auth/        Better Auth's sign-in, sign-up, session and sign-out endpoints
+    api/data/        GET everything saved, PUT one store, DELETE stores, for the signed-in user
     globals.css      Design tokens for both themes, lesson prose styles
     layout.tsx       Fonts, theme script, tooltip provider
   components/
@@ -46,12 +59,14 @@ src/
     challenges/      Challenge workspace, examples, hints, certificate art and view
     playground/      Editor, toolbar, output panes. playground.tsx holds the state
     shared/          Used across features, including ButtonLink
+  db/                Drizzle schema (accounts and user_data) and the Postgres connection
   content/learn/     Lesson files and courses.ts, see "Writing lessons"
   content/challenges/ Challenge files and index.ts, see "Writing challenges"
   config/            Navigation
   hooks/             useCodeRunner (talks to the runner), media query, theme
   lib/
-    data/            Data access. Components depend on these types, not on the source
+    auth.ts          Better Auth server config. auth-client.ts has the browser client and useCurrentUser
+    sync/            Which browser stores sync, and the client that uploads changes and merges on sign-in
     learn/           Lesson parser, check harnesses, progress store, highlighting
     challenges/      Challenge parser, generated starters and tests, daily pick, levels
     playground/      Starter code, local saving, preview document builder
@@ -189,5 +204,12 @@ The browser tests check that both frames report `origin === "null"` and can't re
 
 ### Later phases
 
-- **AI (Phase 5):** OpenAI is called only from server route handlers, with validated input. `OPENAI_API_KEY` must never have the `NEXT_PUBLIC_` prefix.
-- **Auth and data (Phase 7):** Supabase Row Level Security enforces per-user access in the database. Route protection is a convenience on top of that, not the security boundary.
+- **AI:** Claude is called only from the server route handler, with validated input. `ANTHROPIC_API_KEY` must never have the `NEXT_PUBLIC_` prefix.
+
+### Accounts and data (built)
+
+- **Every data query is scoped to the session's user id,** read on the server from the session cookie. The client never sends a user id.
+- **Only known store keys** can be saved, each at most 1 MB of JSON.
+- **Passwords** are hashed by Better Auth. Sessions last 30 days in an HTTP-only cookie.
+- **Signing out** removes the account's data from the browser, so the next person on a shared computer starts clean.
+- **Pages aren't gated.** Lessons and the playground work signed out, and only `/api/data` requires a session.

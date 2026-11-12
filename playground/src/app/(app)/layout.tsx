@@ -3,13 +3,12 @@ import { SidebarNav } from "@/components/layout/sidebar-nav";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { TopBar } from "@/components/layout/top-bar";
 import { UserMenu } from "@/components/layout/user-menu";
-import { getDashboardData } from "@/lib/data/dashboard";
+import { SyncProvider } from "@/components/layout/sync-provider";
 
-export default async function AppLayout({ children }: { children: React.ReactNode }) {
-  const { user } = await getDashboardData();
-
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-svh">
+      <SyncProvider />
       <a
         href="#main"
         className="sr-only z-50 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
@@ -22,7 +21,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </div>
         <SidebarNav />
         <div className="-mx-1 flex items-center justify-between border-t border-sidebar-border pt-3">
-          <UserMenu name={user.name} initials={user.initials} placement="sidebar" />
+          <UserMenu placement="sidebar" />
           <ThemeToggle />
         </div>
       </aside>
